@@ -23,4 +23,10 @@ class Post(
 ): AuditEntity() {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: Long? = null
+
+    // 연관관계 편의 메서드
+    fun addComment(comment: Comment) {
+        comments.add(comment)
+        comment.post = this
+    }
 }
