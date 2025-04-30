@@ -1,4 +1,7 @@
 package kotlin_spring.board.domain.repository
 
-interface PostRepository {
+import kotlin_spring.board.domain.entity.Post
+import org.springframework.data.jpa.repository.JpaRepository
+
+interface PostRepository : JpaRepository<Post, Long> {
 }
