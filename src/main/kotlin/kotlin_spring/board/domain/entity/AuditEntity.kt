@@ -13,9 +13,9 @@ import java.time.LocalDateTime
 abstract class AuditEntity {
     @CreatedDate
     @Column(name = "created_at", updatable = false)
-    var createdAt: LocalDateTime? = null
+    var createdAt: LocalDateTime = LocalDateTime.now()
 
     @LastModifiedDate
     @Column(name = "updated_at")
-    var updatedAt: LocalDateTime? = null
+    var updatedAt: LocalDateTime = LocalDateTime.now()
 }
