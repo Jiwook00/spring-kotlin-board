@@ -29,4 +29,8 @@ class Post(
         comments.add(comment)
         comment.post = this
     }
+
+    fun incrementViewCount() {
+        viewCount += 1
+    }
 }
