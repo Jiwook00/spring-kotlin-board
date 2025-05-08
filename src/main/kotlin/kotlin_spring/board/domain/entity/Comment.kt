@@ -13,7 +13,7 @@ class Comment (
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "post_id", nullable = false)
-    var post: Post
+    val post: Post
 
 ): AuditEntity() {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -39,7 +39,7 @@ class PostCommentRelationshipTest {
         val comment = Comment(commentAuthor, "댓글 내용", post)
 
         // 연관관계 편의 메서드 사용
-        foundPost.addComment(comment)
+        foundPost.comments.add(comment)
 
         em.flush()
         em.clear()

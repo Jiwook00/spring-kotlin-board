@@ -20,7 +20,7 @@ class PostTest {
         val comment = Comment(commentAuthor, "댓글 내용", post)
 
         // when
-        post.addComment(comment)
+        post.comments.add(comment)
 
         // then
         assertEquals(1, post.comments.size)
