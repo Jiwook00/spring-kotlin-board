@@ -1,0 +1,48 @@
+version: '3.8'
+
+services:
+  # 애플리케이션 서비스
+  app:
+    build: .
+    container_name: board-app
+    restart: always
+    ports:
+      - "8080:8080"
+    depends_on:
+      - db
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:mysql://db:3306/board_db?useSSL=false&allowPublicKeyRetrieval=true&characterEncoding=UTF-8&serverTimezone=Asia/Seoul
+      - SPRING_DATASOURCE_USERNAME=boarduser
+      - SPRING_DATASOURCE_PASSWORD=boardpassword
+      - SPRING_JPA_HIBERNATE_DDL_AUTO=update
+      - SPRING_PROFILES_ACTIVE=prod
+    networks:
+      - board-network
+
+  # MySQL 데이터베이스 서비스
+  db:
+    image: mysql:8.0
+    container_name: board-db
+    restart: always
+    ports:
+      - "3306:3306"
+    environment:
+      - MYSQL_DATABASE=board_db
+      - MYSQL_USER=boarduser
+      - MYSQL_PASSWORD=boardpassword
+      - MYSQL_ROOT_PASSWORD=rootpassword
+      - TZ=Asia/Seoul
+    volumes:
+      - mysql-data:/var/lib/mysql
+      - ./mysql/initdb.d:/docker-entrypoint-initdb.d
+    command: --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+    networks:
+      - board-network
+
+volumes:
+  mysql-data:
+    driver: local
+
+networks:
+  board-network:
+    driver: bridge
