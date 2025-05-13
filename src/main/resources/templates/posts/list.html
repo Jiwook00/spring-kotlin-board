@@ -92,7 +92,7 @@
                     <span th:text="${post.viewCount}">42</span>
                 </td>
             </tr>
-            <tr th:if="${posts.empty}">
+            <tr th:if="${posts.isEmpty()}">
                 <td colspan="5" class="px-4 py-6 text-center text-gray-500">
                     등록된 게시글이 없습니다.
                 </td>
