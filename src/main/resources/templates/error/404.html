@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/default}">
+<head>
+    <title>페이지를 찾을 수 없습니다</title>
+</head>
+<body>
+<div layout:fragment="content" class="text-center py-5">
+    <h1 class="display-1">404</h1>
+    <h2 class="mb-4">페이지를 찾을 수 없습니다</h2>
+    <p class="lead" th:if="${errorMessage}" th:text="${errorMessage}">요청하신 페이지를 찾을 수 없습니다.</p>
+    <p class="lead" th:unless="${errorMessage}">요청하신 페이지를 찾을 수 없습니다.</p>
+    <a th:href="@{/}" class="btn btn-primary mt-3">홈으로 돌아가기</a>
+</div>
+</body>
+</html>

@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/default}">
+<head>
+    <title>서버 오류</title>
+</head>
+<body>
+<div layout:fragment="content" class="text-center py-5">
+    <h1 class="display-1">500</h1>
+    <h2 class="mb-4">서버 오류가 발생했습니다</h2>
+    <p class="lead">잠시 후 다시 시도해주세요.</p>
+    <a th:href="@{/}" class="btn btn-primary mt-3">홈으로 돌아가기</a>
+</div>
+</body>
+</html>
