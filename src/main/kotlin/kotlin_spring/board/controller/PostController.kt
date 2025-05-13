@@ -1,5 +1,8 @@
 package kotlin_spring.board.controller
 
+import kotlin_spring.board.domain.entity.AuthorInfo
+import kotlin_spring.board.domain.entity.Post
+import kotlin_spring.board.dto.PostCreateDto
 import kotlin_spring.board.service.PostService
 import org.springframework.data.domain.Pageable
 import org.springframework.data.domain.Sort
@@ -7,6 +10,7 @@ import org.springframework.data.web.PageableDefault
 import org.springframework.stereotype.Controller
 import org.springframework.ui.Model
 import org.springframework.web.bind.annotation.*
+import org.springframework.web.servlet.mvc.support.RedirectAttributes
 
 @Controller
 @RequestMapping("/posts")
@@ -39,10 +43,39 @@ class PostController(
     }
 
     // 게시글 상세 페이지
+    @GetMapping("/{id}")
+    fun getPost(@PathVariable id: Long, model: Model): String {
+        val post = postService.getPost(id)
+
+        model.addAttribute("post", post)
+
+        return "posts/detail"
+    }
 
     // 게시글 작성 폼
+    @GetMapping("/new")
+    fun newPostForm(model: Model): String {
+        model.addAttribute("post", PostCreateDto("", "", "", ""))
+        return "posts/form"
+    }
 
     // 게시글 생성 처리
+    @PostMapping
+    fun createPost(
+        @ModelAttribute postDto: PostCreateDto,
+        redirectAttributes: RedirectAttributes,
+    ): String {
+        val post = Post(
+            authorInfo = AuthorInfo(postDto.author, postDto.password),
+            title = postDto.title,
+            content = postDto.content
+        )
+
+        val savedPost = postService.savePost(post)
+        redirectAttributes.addFlashAttribute("message", "게시글이 저장되었습니다.")
+
+        return "redirect:/posts/${savedPost.id}"
+    }
 
     // 게시글 수정 폼
 

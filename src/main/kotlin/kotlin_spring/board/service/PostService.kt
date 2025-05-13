@@ -36,4 +36,10 @@ class PostService(private val postRepository: PostRepository) {
 
         return post
     }
+
+    // 게시글 저장
+    @Transactional
+    fun savePost(post: Post): Post {
+        return postRepository.save(post)
+    }
 }
