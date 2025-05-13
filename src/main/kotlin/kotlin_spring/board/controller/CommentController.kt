@@ -6,9 +6,7 @@ import kotlin_spring.board.dto.CommentCreateDto
 import kotlin_spring.board.service.CommentService
 import kotlin_spring.board.service.PostService
 import org.springframework.stereotype.Controller
-import org.springframework.web.bind.annotation.ModelAttribute
-import org.springframework.web.bind.annotation.PostMapping
-import org.springframework.web.bind.annotation.RequestMapping
+import org.springframework.web.bind.annotation.*
 import org.springframework.web.servlet.mvc.support.RedirectAttributes
 
 @Controller
@@ -39,5 +37,23 @@ class CommentController(
         }
 
         return "redirect:/posts/${commentDto.postId}"
+    }
+
+    @PostMapping("/{id}/delete")
+    fun deleteComment(
+        @PathVariable id: Long,
+        @RequestParam password: String,
+        @RequestParam postId: Long,
+        redirectAttributes: RedirectAttributes,
+    ): String {
+        try {
+            commentService.deleteComment(id, password)
+            redirectAttributes.addFlashAttribute("message", "댓글이 삭제되었습니다.")
+        } catch (e: IllegalArgumentException) {
+            redirectAttributes.addFlashAttribute("error", e.message)
+            return "redirect:/posts/${postId}"
+        }
+
+        return "redirect:/posts/${postId}"
     }
 }
