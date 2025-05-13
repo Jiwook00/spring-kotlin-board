@@ -6,8 +6,10 @@ import kotlin_spring.board.domain.repository.PostRepository
 import org.springframework.boot.CommandLineRunner
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
+import org.springframework.context.annotation.Profile
 
 @Configuration
+@Profile("dev")
 class DataInitializer {
 
     @Bean
