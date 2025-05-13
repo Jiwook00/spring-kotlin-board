@@ -66,4 +66,17 @@ class PostService(private val postRepository: PostRepository) {
 
         return post
     }
+
+    @Transactional
+    fun deletePost(id: Long, password: String) {
+        val post = postRepository.findById(id).orElseThrow {
+            NoSuchElementException("게시글을 찾을 수 없습니다: $id")
+        }
+
+        if (post.authorInfo.password != password) {
+            throw IllegalArgumentException("비밀번호가 일치하지 않습니다.")
+        }
+
+        postRepository.deleteById(id)
+    }
 }

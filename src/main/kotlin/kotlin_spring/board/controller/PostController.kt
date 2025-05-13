@@ -112,5 +112,20 @@ class PostController(
     }
 
     // 게시글 삭제
+    @PostMapping("/{id}/delete")
+    fun deletePost(
+        @PathVariable id: Long,
+        @RequestParam password: String,
+        redirectAttributes: RedirectAttributes
+    ): String {
+        try {
+            postService.deletePost(id, password)
+            redirectAttributes.addFlashAttribute("message", "게시글이 삭제되었습니다.")
+        } catch (e: IllegalArgumentException) {
+            redirectAttributes.addFlashAttribute("error", e.message)
+            return "redirect:/posts/${id}"
+        }
 
+        return "redirect:/posts"
+    }
 }
