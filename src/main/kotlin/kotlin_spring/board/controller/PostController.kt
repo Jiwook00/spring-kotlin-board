@@ -3,6 +3,7 @@ package kotlin_spring.board.controller
 import kotlin_spring.board.domain.entity.AuthorInfo
 import kotlin_spring.board.domain.entity.Post
 import kotlin_spring.board.dto.PostCreateDto
+import kotlin_spring.board.dto.PostUpdateDto
 import kotlin_spring.board.service.PostService
 import org.springframework.data.domain.Pageable
 import org.springframework.data.domain.Sort
@@ -78,8 +79,37 @@ class PostController(
     }
 
     // 게시글 수정 폼
+    @GetMapping("/{id}/edit")
+    fun editPostForm(@PathVariable id: Long, model: Model): String {
+        val post = postService.getPostWithoutViewIncrement(id)
+
+        model.addAttribute("post", PostUpdateDto(
+            id = post.id ?: 0L,
+            title = post.title,
+            content = post.content,
+            password = ""
+        ))
+
+        return "posts/edit"
+    }
 
     // 게시글 수정 처리
+    @PostMapping("/{id}")
+    fun updatePost(
+        @PathVariable id: Long,
+        @ModelAttribute postDto: PostUpdateDto,
+        redirectAttributes: RedirectAttributes,
+    ): String {
+        try {
+            postService.updatePost(id, postDto)
+            redirectAttributes.addFlashAttribute("message", "게시글이 수정되었습니다.")
+        } catch (e: IllegalArgumentException) {
+            redirectAttributes.addFlashAttribute("error", e.message)
+            return "redirect:/posts/${id}"
+        }
+
+        return "redirect:/posts/${id}"
+    }
 
     // 게시글 삭제
 
