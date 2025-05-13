@@ -78,33 +78,33 @@
             </div>
         </div>
 
-<!--        &lt;!&ndash; 댓글 영역 &ndash;&gt;-->
-<!--        <div class="p-6 border-t">-->
-<!--            <h2 class="text-lg font-semibold mb-4">댓글 (<span th:text="${#lists.size(comments)}">0</span>)</h2>-->
+        <!-- 댓글 영역 -->
+        <div class="p-6 border-t">
+            <h2 class="text-lg font-semibold mb-4">댓글 (<span th:text="${#lists.size(comments)}">0</span>)</h2>
 
-<!--            &lt;!&ndash; 댓글 목록 &ndash;&gt;-->
-<!--            <div class="space-y-4 mb-6">-->
-<!--                <div th:each="comment : ${comments}" class="bg-gray-50 p-4 rounded">-->
-<!--                    <div class="flex justify-between items-start">-->
-<!--                        <div>-->
-<!--                            <div class="font-medium" th:text="${comment.author}">댓글 작성자</div>-->
-<!--                            <div class="text-sm text-gray-500" th:text="${comment.createdAt}">2025-05-12 15:00:00</div>-->
-<!--                        </div>-->
-<!--                        <button-->
-<!--                                class="text-red-500 hover:text-red-700"-->
-<!--                                th:attr="onclick=|openCommentDeleteModal('${comment.id}')|"-->
-<!--                        >-->
-<!--                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">-->
-<!--                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />-->
-<!--                            </svg>-->
-<!--                        </button>-->
-<!--                    </div>-->
-<!--                    <div class="mt-2" th:utext="${#strings.replace(#strings.escapeXml(comment.content), '&#10;', '<br>')}">댓글 내용</div>-->
-<!--                </div>-->
-<!--                <div th:if="${#lists.isEmpty(comments)}" class="text-gray-500 text-center py-4">-->
-<!--                    등록된 댓글이 없습니다.-->
-<!--                </div>-->
-<!--            </div>-->
+            <!-- 댓글 목록 -->
+            <div class="space-y-4 mb-6">
+                <div th:each="comment : ${comments}" class="bg-gray-50 p-4 rounded">
+                    <div class="flex justify-between items-start">
+                        <div>
+                            <div class="font-medium" th:text="${comment.author}">댓글 작성자</div>
+                            <div class="text-sm text-gray-500" th:text="${comment.createdAt}">2025-05-12 15:00:00</div>
+                        </div>
+                        <button
+                                class="text-red-500 hover:text-red-700"
+                                th:attr="onclick=|openCommentDeleteModal('${comment.id}')|"
+                        >
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                            </svg>
+                        </button>
+                    </div>
+                    <div class="mt-2" th:utext="${#strings.replace(#strings.escapeXml(comment.content), '&#10;', '<br>')}">댓글 내용</div>
+                </div>
+                <div th:if="${#lists.isEmpty(comments)}" class="text-gray-500 text-center py-4">
+                    등록된 댓글이 없습니다.
+                </div>
+            </div>
 
             <!-- 댓글 작성 폼 -->
             <form action="/comments" method="post" class="border-t pt-4">

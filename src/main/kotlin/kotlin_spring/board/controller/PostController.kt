@@ -4,6 +4,7 @@ import kotlin_spring.board.domain.entity.AuthorInfo
 import kotlin_spring.board.domain.entity.Post
 import kotlin_spring.board.dto.PostCreateDto
 import kotlin_spring.board.dto.PostUpdateDto
+import kotlin_spring.board.service.CommentService
 import kotlin_spring.board.service.PostService
 import org.springframework.data.domain.Pageable
 import org.springframework.data.domain.Sort
@@ -17,6 +18,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes
 @RequestMapping("/posts")
 class PostController(
     private val postService: PostService,
+    private val commentService: CommentService,
 ) {
 
     // 게시글 목록 페이지
@@ -47,8 +49,10 @@ class PostController(
     @GetMapping("/{id}")
     fun getPost(@PathVariable id: Long, model: Model): String {
         val post = postService.getPost(id)
+        val comments = commentService.getCommentByPostId(id)
 
         model.addAttribute("post", post)
+        model.addAttribute("comments", comments)
 
         return "posts/detail"
     }
