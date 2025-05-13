@@ -1,0 +1,65 @@
+/* 커스텀 스타일 */
+
+/* 글로벌 스타일 */
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+}
+
+/* 링크 호버 효과 */
+a.hover-underline:hover {
+    text-decoration: underline;
+}
+
+/* 버튼 호버 효과 */
+.btn {
+    transition: all 0.2s ease-in-out;
+}
+
+.btn:hover {
+    transform: translateY(-1px);
+}
+
+/* 테이블 스타일 */
+.table-hover tr:hover {
+    background-color: rgba(59, 130, 246, 0.05);
+}
+
+/* 페이지네이션 스타일 */
+.pagination .active {
+    font-weight: bold;
+    background-color: #3b82f6;
+    color: white;
+}
+
+/* 게시글 내용 스타일 */
+.post-content {
+    line-height: 1.6;
+}
+
+.post-content p {
+    margin-bottom: 1rem;
+}
+
+.post-content pre {
+    background-color: #f3f4f6;
+    padding: 1rem;
+    border-radius: 0.25rem;
+    overflow-x: auto;
+}
+
+/* 모달 애니메이션 */
+.modal {
+    transition: opacity 0.2s ease-in-out;
+}
+
+.modal.show {
+    opacity: 1;
+}
+
+.modal.hide {
+    opacity: 0;
+}

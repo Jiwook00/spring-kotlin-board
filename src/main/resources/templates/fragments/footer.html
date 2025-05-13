@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <th:block th:fragment="header-common">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css">
+        <link rel="stylesheet" href="/css/styles.css">
+    </th:block>
+</head>
+<body>
+<!-- 푸터 -->
+<footer th:fragment="footer" class="bg-gray-100 mt-12">
+    <div class="container mx-auto px-4 py-6">
+        <div class="text-center text-gray-500 text-sm">
+            <p>&copy; 게시판. All rights reserved.</p>
+        </div>
+    </div>
+</footer>
+</body>
+</html>
