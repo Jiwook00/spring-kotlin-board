@@ -9,6 +9,7 @@ import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
 import org.junit.jupiter.api.extension.ExtendWith
+import org.mockito.ArgumentCaptor
 import org.mockito.InjectMocks
 import org.mockito.Mock
 import org.mockito.Mockito.*
@@ -79,14 +80,22 @@ class CommentServiceTest {
     @Test
     fun `댓글 저장 테스트`() {
         // given
-        `when`(commentRepository.save(comment)).thenReturn(comment)
+        `when`(commentRepository.save(comment)).thenAnswer { invocation -> invocation.arguments[0] as Comment }
 
         // when
         val savedComment = commentService.saveComment(comment)
 
         // then
         assertEquals(comment, savedComment)
-        verify(commentRepository, times(1)).save(comment)
+
+        // ArgumentCaptor를 사용해 실제 저장된 객체 검증
+        val commentCaptor = ArgumentCaptor.forClass(Comment::class.java)
+        verify(commentRepository).save(commentCaptor.capture())
+
+        val capturedComment = commentCaptor.value
+        assertEquals(comment.id, capturedComment.id)
+        assertEquals(comment.content, capturedComment.content)
+        assertEquals(comment.author.nickname, capturedComment.author.nickname)
     }
 
     @Test
